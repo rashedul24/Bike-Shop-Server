@@ -30,7 +30,15 @@ async function run() {
         const products = await cursor.toArray();
         res.send(products)
       })
-      
+      //Get Unique API
+      app.get('/products/:id', async (req, res) => {
+        const id = req.params.id;
+        const query = { _id: ObjectId(id) };
+        const product = await productCollection.findOne(query);
+        res.json(product);
+      })
+  
+   
 
         //Post API
     app.post("/products", async (req, res) => {
