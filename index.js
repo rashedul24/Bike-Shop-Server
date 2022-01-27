@@ -22,6 +22,7 @@ async function run() {
         const database = client.db("bikeShop");
         const productCollection = database.collection("products");
         const orderCollection=database.collection("orders");
+        const userCollection=database.collection("users");
 
 
         //Get API(home)
@@ -66,6 +67,13 @@ async function run() {
          const result = await orderCollection.insertOne(order);
          res.json(result)
       });
+        //User Post API
+    app.post("/users", async (req, res) => {
+        const user = req.body;
+         const result = await userCollection.insertOne(user);
+         res.json(result)
+      });
+
     }
     finally{
 
