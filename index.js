@@ -45,11 +45,11 @@ async function run() {
       })
   
       //Get order API
-      app.get('/order', async (req, res) => {
+      app.get('/orders', async (req, res) => {
         const cursor = orderCollection.find({});
-        const orders = await cursor.toArray();
+        const order = await cursor.toArray();
         console.log(order);
-        res.send(orders)
+        res.send(order)
       })
 
         //Product Post API
