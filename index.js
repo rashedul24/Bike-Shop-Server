@@ -24,11 +24,17 @@ async function run() {
         const orderCollection=database.collection("orders");
 
 
-        //Get API
+        //Get API(home)
     app.get('/products', async (req, res) => {
-        const cursor = productCollection.find({});
+        const cursor = productCollection.find({}).limit(6);
         const products = await cursor.toArray();
         res.send(products)
+      })
+        //Get API
+    app.get('/allProducts', async (req, res) => {
+        const cursor = productCollection.find({});
+        const allProducts = await cursor.toArray();
+        res.send(allProducts)
       })
       //Get Unique API
       app.get('/products/:id', async (req, res) => {
@@ -38,14 +44,26 @@ async function run() {
         res.json(product);
       })
   
-   
+      //Get order API
+      app.get('/order', async (req, res) => {
+        const cursor = orderCollection.find({});
+        const orders = await cursor.toArray();
+        console.log(order);
+        res.send(orders)
+      })
 
-        //Post API
+        //Product Post API
     app.post("/products", async (req, res) => {
         const product = req.body;
         console.log('hitting post api', product );
          const result = await productCollection.insertOne(product);
          console.log(result);
+         res.json(result)
+      });
+        //Order Post API
+    app.post("/orders", async (req, res) => {
+        const order = req.body;
+         const result = await orderCollection.insertOne(order);
          res.json(result)
       });
     }
