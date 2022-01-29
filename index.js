@@ -52,6 +52,7 @@ async function run() {
         res.send(order)
       })
 
+    
         //Product Post API
     app.post("/products", async (req, res) => {
         const product = req.body;
@@ -86,6 +87,15 @@ async function run() {
       const result = await orderCollection.deleteOne(query);
       res.json(result);
     });
+
+    //Add Admin API
+    app.put('/users/admin', async(req, res) =>{
+      const user = req.body ;
+      const filter = {email: user.email};
+      const updateDoc={$set: {role: 'admin'}}
+      const result = await userCollection.updateOne(filter , updateDoc);
+      res.json(result);
+    })
 
     }
     finally{
