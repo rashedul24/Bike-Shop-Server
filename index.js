@@ -55,7 +55,6 @@ async function run() {
         //Product Post API
     app.post("/products", async (req, res) => {
         const product = req.body;
-        console.log('hitting post api', product );
          const result = await productCollection.insertOne(product);
          console.log(result);
          res.json(result)
@@ -73,11 +72,17 @@ async function run() {
          res.json(result)
       });
 
+      //Delete Unique Product API
+    app.delete('/allProducts/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await productCollection.deleteOne(query);
+      res.json(result);
+    });
       //Delete Unique Orders API
     app.delete('/orders/:id', async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
-      console.log(query);
       const result = await orderCollection.deleteOne(query);
       res.json(result);
     });
