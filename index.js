@@ -49,7 +49,6 @@ async function run() {
       app.get('/orders', async (req, res) => {
         const cursor = orderCollection.find({});
         const order = await cursor.toArray();
-        console.log(order);
         res.send(order)
       })
 
@@ -73,6 +72,15 @@ async function run() {
          const result = await userCollection.insertOne(user);
          res.json(result)
       });
+
+      //Delete Unique Orders API
+    app.delete('/orders/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      console.log(query);
+      const result = await orderCollection.deleteOne(query);
+      res.json(result);
+    });
 
     }
     finally{
