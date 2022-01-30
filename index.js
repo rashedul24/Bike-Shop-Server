@@ -38,6 +38,13 @@ async function run() {
         const allProducts = await cursor.toArray();
         res.send(allProducts)
       })
+        //Get Review API
+    app.get('/review', async (req, res) => {
+        const cursor = reviewCollection.find({});
+        const result = await cursor.toArray();
+        res.send(result)
+      })
+
       //Get Unique API
       app.get('/products/:id', async (req, res) => {
         const id = req.params.id;
@@ -115,7 +122,8 @@ async function run() {
       const result = await reviewCollection.insertOne(review);
       res.json(result)
   });
-    
+  
+   
 
     }
     finally{
